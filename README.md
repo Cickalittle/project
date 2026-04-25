@@ -163,7 +163,6 @@ Cifratura Enigma lato server (specchiata in JS per uso offline).
 
 ## Note tecniche
 
-- La cifratura Enigma è implementata **sia in Python** (`app.py`) **che in JavaScript** (`storia.js`): il frontend usa la versione JS per evitare latenza, il backend esiste come fallback e punto di verifica.
 - Il grafico matematico è disegnato su `<canvas>` senza librerie esterne: assi, griglia, zoom e pan sono gestiti a mano.
 - Il word cloud è generato interamente in JS con posizionamento flexbox casuale — nessun D3 o librerie simili.
 
