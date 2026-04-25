@@ -1,0 +1,192 @@
+.index-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2xl) var(--space-lg);
+}
+
+/* Header */
+.index-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.index-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-purple-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--space-md);
+}
+
+.index-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Subject Grid */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Subject Card */
+.subject-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xl);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--card-accent, var(--accent-purple)), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.subject-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.subject-card:hover::before {
+    opacity: 1;
+}
+
+.subject-card.available {
+    cursor: pointer;
+}
+
+.subject-card.coming-soon {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.subject-card.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Card Number */
+.card-number {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+/* Card Icon */
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+}
+
+/* Card Title */
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+/* Card Description */
+.card-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--space-md);
+}
+
+/* Card Status */
+.card-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    width: fit-content;
+}
+
+.card-status.available {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+}
+
+.card-status.coming-soon {
+    background: rgba(109, 100, 144, 0.15);
+    color: var(--text-muted);
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+/* Card Colors */
+.subject-card[data-subject="matematica"] {
+    --card-accent: #7c3aed;
+}
+
+.subject-card[data-subject="italiano"] {
+    --card-accent: #b45309;
+}
+
+.subject-card[data-subject="storia"] {
+    --card-accent: #4d7c0f;
+}
+
+.subject-card[data-subject="chimica"] {
+    --card-accent: #0d9488;
+}
+
+/* Footer */
+.index-footer {
+    margin-top: var(--space-2xl);
+    text-align: center;
+}
+
+.index-footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .index-page {
+        padding: var(--space-xl) var(--space-md);
+    }
+    
+    .subjects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .subject-card {
+        padding: var(--space-lg);
+    }
+}

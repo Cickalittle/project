@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Word-Cloud dei Testi — Italiano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/italiano.css') }}">
+</head>
+<body>
+
+  <nav class="topnav">
+    <a href="/" class="back-link">← Home</a>
+    <div class="nav-sep"></div>
+    <span class="nav-title">Il Word-Cloud dei Testi</span>
+    <span class="nav-badge" id="nav-badge">—</span>
+  </nav>
+
+  <main class="app-container">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+
+      <div class="sb-section">
+        <div class="sb-title">Testo</div>
+        <textarea id="text-input" class="text-area"
+          placeholder="Incolla qui il testo di un canto, una poesia o qualsiasi brano letterario…"
+          rows="14" spellcheck="false"></textarea>
+        <div class="char-count" id="char-count">0 caratteri</div>
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Esempio rapido</div>
+        <button class="example-btn" id="example-btn">
+          Canto I dell'Inferno — incipit
+        </button>
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-title">Opzioni</div>
+        <div class="option-row">
+          <span class="option-label">Rimuovi stopwords italiane</span>
+          <label class="toggle"><input type="checkbox" id="opt-stopwords" checked><span class="tslider"></span></label>
+        </div>
+        <div class="option-row">
+          <span class="option-label">Ignora punteggiatura</span>
+          <label class="toggle"><input type="checkbox" id="opt-punct" checked><span class="tslider"></span></label>
+        </div>
+        <div class="option-row">
+          <span class="option-label">Maiuscole = minuscole</span>
+          <label class="toggle"><input type="checkbox" id="opt-lower" checked><span class="tslider"></span></label>
+        </div>
+        <div class="option-row">
+          <span class="option-label">Top N parole nel grafico</span>
+          <select class="topn-select" id="opt-topn">
+            <option value="10">10</option>
+            <option value="15" selected>15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sb-section">
+        <button class="analyze-btn" id="analyze-btn">⟳ Analizza</button>
+        <div class="error-badge" id="error-badge"></div>
+      </div>
+
+      <div class="sb-section" id="stats-section" style="display:none">
+        <div class="sb-title">Statistiche</div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-val" id="stat-totale">—</div>
+            <div class="stat-lbl">parole totali</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="stat-uniche">—</div>
+            <div class="stat-lbl">parole uniche</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="stat-stop">—</div>
+            <div class="stat-lbl">stopwords rimosse</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-val" id="stat-top1">—</div>
+            <div class="stat-lbl">parola più frequente</div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── AREA RISULTATI ── -->
+    <section class="results-area">
+
+      <div class="placeholder" id="placeholder">
+        <div class="placeholder-icon">📖</div>
+        <div class="placeholder-title">Incolla un testo e premi Analizza</div>
+        <div class="placeholder-sub">Il word-cloud e il grafico delle frequenze appariranno qui</div>
+      </div>
+
+      <div class="results-wrap" id="results-wrap" style="display:none">
+
+        <div class="result-panel">
+          <div class="result-panel-header">
+            <span class="result-panel-title">Word Cloud</span>
+            <span class="result-panel-meta" id="wc-meta"></span>
+          </div>
+          <div class="wordcloud-container" id="wordcloud-container"></div>
+        </div>
+
+        <div class="result-panel">
+          <div class="result-panel-header">
+            <span class="result-panel-title">Frequenze — Top <span id="topn-label">15</span></span>
+            <span class="result-panel-meta" id="bar-meta"></span>
+          </div>
+          <div class="barchart-container" id="barchart-container"></div>
+        </div>
+
+        <div class="result-panel">
+          <div class="result-panel-header">
+            <span class="result-panel-title">Tutte le parole significative</span>
+            <span class="result-panel-meta" id="list-meta"></span>
+          </div>
+          <div class="wordlist-container" id="wordlist-container"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='js/italiano.js') }}"></script>
+</body>
+</html>

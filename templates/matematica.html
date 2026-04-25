@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio di Funzione</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/matematica.css') }}">
+  <script>
+    MathJax = { tex: { inlineMath: [['$','$']] }, options: { skipHtmlTags: ['script','noscript','style','textarea'] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="/" class="back-link">← Home</a>
+  <div class="nav-sep"></div>
+  <span class="nav-title">Studio di Funzione</span>
+  <span class="nav-func" id="nav-func">f(x) = <strong id="current-func">—</strong></span>
+</nav>
+
+<div class="app-container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Funzione</div>
+      <div class="func-input-wrap">
+        <span class="fx-label">f(x) =</span>
+        <input type="text" id="fx-input" value="x**3 - 3*x"
+              autocomplete="off" spellcheck="false" placeholder="es. sin(x), x**2, log(x)…"/>
+        <button class="syntax-btn" id="syntax-btn" title="Guida sintassi">?</button>
+      </div>
+      <div class="syntax-panel" id="syntax-panel">
+        <div class="syn-title">Sintassi supportata</div>
+        <div class="syn-grid">
+          <div class="syn-group">
+            <div class="syn-cat">Potenze</div>
+            <div class="syn-row"><span class="syn-input">x**2</span><span class="syn-arrow">→</span><span class="syn-math">x²</span></div>
+            <div class="syn-row"><span class="syn-input">x**3</span><span class="syn-arrow">→</span><span class="syn-math">x³</span></div>
+            <div class="syn-row"><span class="syn-input">x**(1/2)</span><span class="syn-arrow">→</span><span class="syn-math">x^½</span></div>
+          </div>
+          <div class="syn-group">
+            <div class="syn-cat">Radici / Exp</div>
+            <div class="syn-row"><span class="syn-input">sqrt(x)</span><span class="syn-arrow">→</span><span class="syn-math">√x</span></div>
+            <div class="syn-row"><span class="syn-input">exp(x)</span><span class="syn-arrow">→</span><span class="syn-math">eˣ</span></div>
+            <div class="syn-row"><span class="syn-input">log(x, 10)</span><span class="syn-arrow">→</span><span class="syn-math">log₁₀ x</span></div>
+            <div class="syn-row"><span class="syn-input">log(x, 2)</span><span class="syn-arrow">→</span><span class="syn-math">log₂ x</span></div>
+            <div class="syn-row"><span class="syn-input">log(x, a)</span><span class="syn-arrow">→</span><span class="syn-math">logₐ x</span></div>
+          </div>
+          <div class="syn-group">
+            <div class="syn-cat">Trigonometria</div>
+            <div class="syn-row"><span class="syn-input">sin(x)</span><span class="syn-arrow">→</span><span class="syn-math">sin x</span></div>
+            <div class="syn-row"><span class="syn-input">cos(x)</span><span class="syn-arrow">→</span><span class="syn-math">cos x</span></div>
+            <div class="syn-row"><span class="syn-input">tan(x)</span><span class="syn-arrow">→</span><span class="syn-math">tan x</span></div>
+          </div>
+          <div class="syn-group">
+            <div class="syn-cat">Inverse / Iperb.</div>
+            <div class="syn-row"><span class="syn-input">asin(x)</span><span class="syn-arrow">→</span><span class="syn-math">arcsin x</span></div>
+            <div class="syn-row"><span class="syn-input">acos(x)</span><span class="syn-arrow">→</span><span class="syn-math">arccos x</span></div>
+            <div class="syn-row"><span class="syn-input">sinh(x)</span><span class="syn-arrow">→</span><span class="syn-math">sinh x</span></div>
+          </div>
+          <div class="syn-group">
+            <div class="syn-cat">Altro</div>
+            <div class="syn-row"><span class="syn-input">abs(x)</span><span class="syn-arrow">→</span><span class="syn-math">|x|</span></div>
+            <div class="syn-row"><span class="syn-input">1/x</span><span class="syn-arrow">→</span><span class="syn-math">1/x</span></div>
+            <div class="syn-row"><span class="syn-input">pi</span><span class="syn-arrow">→</span><span class="syn-math">π</span></div>
+          </div>
+          <div class="syn-group">
+            <div class="syn-cat">Operatori</div>
+            <div class="syn-row"><span class="syn-input">*</span><span class="syn-arrow">→</span><span class="syn-math">moltiplicazione</span></div>
+            <div class="syn-row"><span class="syn-input">/</span><span class="syn-arrow">→</span><span class="syn-math">divisione</span></div>
+            <div class="syn-row"><span class="syn-input">**</span><span class="syn-arrow">→</span><span class="syn-math">elevamento a potenza</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="range-row">
+        <span>x ∈ [</span>
+        <input type="number" id="x-min" value="-6" step="1">
+        <span>,</span>
+        <input type="number" id="x-max" value="6" step="1">
+        <span>]</span>
+      </div>
+      <button class="analyze-btn" id="analyze-btn">⟳ Analizza</button>
+      <div class="spinner" id="spinner"></div>
+      <div class="error-badge" id="error-badge"></div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Esempi rapidi</div>
+      <div class="presets">
+        <button class="preset-btn" data-f="sin(x)">sin(x)</button>
+        <button class="preset-btn" data-f="cos(x)">cos(x)</button>
+        <button class="preset-btn" data-f="x**2">x²</button>
+        <button class="preset-btn" data-f="x**3 - 3*x">x³−3x</button>
+        <button class="preset-btn" data-f="log(x)">ln(x)</button>
+        <button class="preset-btn" data-f="sqrt(x)">√x</button>
+        <button class="preset-btn" data-f="exp(x)">eˣ</button>
+        <button class="preset-btn" data-f="1/x">1/x</button>
+        <button class="preset-btn" data-f="abs(x)">|x|</button>
+        <button class="preset-btn" data-f="x**4 - 4*x**2">x⁴−4x²</button>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Livelli visibili</div>
+      <div class="toggle-row">
+        <div class="toggle-label"><div class="dot" style="background:#6344D4"></div>f(x)</div>
+        <label class="toggle"><input type="checkbox" id="show-f" checked><span class="tslider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-label"><div class="dot" style="background:#c46050"></div>f′(x)</div>
+        <label class="toggle"><input type="checkbox" id="show-d1" checked><span class="tslider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-label"><div class="dot" style="background:#2a9d8f"></div>f″(x)</div>
+        <label class="toggle"><input type="checkbox" id="show-d2"><span class="tslider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-label"><div class="dot" style="background:#c48a40"></div>Punti critici</div>
+        <label class="toggle"><input type="checkbox" id="show-cp" checked><span class="tslider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-label"><div class="dot" style="background:#8aab80"></div>Retta tangente</div>
+        <label class="toggle"><input type="checkbox" id="show-tan"><span class="tslider"></span></label>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Derivate simboliche</div>
+      <div class="expr-display">
+        <div class="expr-label">f′(x)</div>
+        <div class="expr-val" id="d1-expr">—</div>
+      </div>
+      <div class="expr-display">
+        <div class="expr-label">f″(x)</div>
+        <div class="expr-val" id="d2-expr">—</div>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Punti critici</div>
+      <div class="cp-list" id="cp-list">—</div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Asintoti</div>
+      <div class="asymptote-list" id="asymptote-list">—</div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Dominio</div>
+      <div class="domain-display" id="domain-display">—</div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-title">Segno di f(x)</div>
+      <div class="sign-list" id="sign-list">—</div>
+    </div>
+  </aside>
+
+  <div class="canvas-area" id="canvas-area">
+    <canvas id="graph-canvas"></canvas>
+    <div class="crosshair-box" id="crosshair-box">
+      <div class="cr-row"><span class="cr-lbl">x</span><span id="ci-x">—</span></div>
+      <div class="cr-row"><span class="cr-lbl">f(x)</span><span id="ci-fx">—</span></div>
+      <div class="cr-row"><span class="cr-lbl">f′(x)</span><span id="ci-d1">—</span></div>
+      <div class="cr-row"><span class="cr-lbl">f″(x)</span><span id="ci-d2">—</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/matematica.js') }}"></script>
+</body>
+</html>

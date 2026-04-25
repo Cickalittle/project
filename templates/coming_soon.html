@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ materia }} &mdash; Prossimamente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #FAFAF7;
+      color: #1a1a18;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      gap: 1rem;
+      text-align: center;
+    }
+    .icon { font-size: 2.5rem; margin-bottom: 0.3rem; }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      font-size: 2.4rem;
+      color: #1a1a18;
+    }
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #ababA4;
+      border: 1px solid #E4E4DC;
+      padding: 0.25rem 0.8rem;
+    }
+    p {
+      font-size: 0.82rem;
+      color: #5a5a54;
+      font-weight: 300;
+      max-width: 300px;
+      line-height: 1.7;
+    }
+    a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #ababA4;
+      text-decoration: none;
+      border: 1px solid #E4E4DC;
+      padding: 0.5rem 1.1rem;
+      margin-top: 0.5rem;
+      transition: all 0.18s;
+    }
+    a:hover { color: #1a1a18; border-color: #1a1a18; }
+  </style>
+</head>
+<body>
+  <h1>{{ materia }}</h1>
+  <span class="badge">Prossimamente</span>
+  <p>{{ desc }} — <br>Sezione è in sviluppo e sarà disponibile presto.</p>
+  <a href="/">← Torna alla home</a>
+</body>
+</html>

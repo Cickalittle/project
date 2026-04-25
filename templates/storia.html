@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decriptatore Enigma — Seconda Guerra Mondiale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Special+Elite&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/storia.css') }}">
+</head>
+<body>
+
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+
+  <nav class="topnav">
+    <a href="/" class="back-link">← TORNA ALLA HOME</a>
+    <div class="nav-sep"></div>
+    <span class="nav-title">ENIGMA — DECRITTATORE</span>
+    <span class="nav-badge">CLASSIFIED</span>
+  </nav>
+
+  <main class="app-container">
+
+    <!-- ── PANNELLO SINISTRO: ROTORI + INPUT ── -->
+    <section class="panel panel-left">
+
+      <div class="panel-header">
+        <span class="panel-icon">⚙</span>
+        <h2 class="panel-title">CONFIGURAZIONE ROTORI</h2>
+      </div>
+
+      <div class="rotors-group">
+
+        <!-- Rotore I -->
+        <div class="rotor-block">
+          <div class="rotor-label">ROTORE I</div>
+          <select class="rotor-select" id="rotor1">
+            <option value="I">I — EKMFLGDQVZNTOWYHXUSPAIBRCJ</option>
+            <option value="II">II — AJDKSIRUXBLHWTMCQGZNPYFVOE</option>
+            <option value="III">III — BDFHJLCPRTXVZNYEIWGAKMUSQO</option>
+            <option value="IV">IV — ESOVPZJAYQUIRHXLNFTGKDCMWB</option>
+            <option value="V">V — VZBRGITYUPSDNHLXAWMJQOFECK</option>
+          </select>
+        </div>
+
+        <!-- Rotore II -->
+        <div class="rotor-block">
+          <div class="rotor-label">ROTORE II</div>
+          <select class="rotor-select" id="rotor2">
+            <option value="I">I — EKMFLGDQVZNTOWYHXUSPAIBRCJ</option>
+            <option value="II" selected>II — AJDKSIRUXBLHWTMCQGZNPYFVOE</option>
+            <option value="III">III — BDFHJLCPRTXVZNYEIWGAKMUSQO</option>
+            <option value="IV">IV — ESOVPZJAYQUIRHXLNFTGKDCMWB</option>
+            <option value="V">V — VZBRGITYUPSDNHLXAWMJQOFECK</option>
+          </select>
+        </div>
+
+        <!-- Rotore III -->
+        <div class="rotor-block">
+          <div class="rotor-label">ROTORE III</div>
+          <select class="rotor-select" id="rotor3">
+            <option value="I">I — EKMFLGDQVZNTOWYHXUSPAIBRCJ</option>
+            <option value="II">II — AJDKSIRUXBLHWTMCQGZNPYFVOE</option>
+            <option value="III" selected>III — BDFHJLCPRTXVZNYEIWGAKMUSQO</option>
+            <option value="IV">IV — ESOVPZJAYQUIRHXLNFTGKDCMWB</option>
+            <option value="V">V — VZBRGITYUPSDNHLXAWMJQOFECK</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Posizione iniziale -->
+      <div class="key-block">
+        <div class="key-label">POSIZIONE INIZIALE (es. AAA, XKZ)</div>
+        <input type="text" id="rotor-key" class="key-input"
+               value="AAA" maxlength="3"
+               placeholder="AAA"
+               autocomplete="off" spellcheck="false">
+        <div class="key-hint">3 lettere, una per rotore (A–Z)</div>
+      </div>
+
+      <!-- Textarea input -->
+      <div class="input-block">
+        <div class="input-label">MESSAGGIO</div>
+        <textarea id="msg-input" class="msg-textarea"
+                  placeholder="Inserisci il testo da cifrare o decifrare...&#10;(solo lettere A-Z, spazi e punteggiatura verranno ignorati)"
+                  rows="6"></textarea>
+      </div>
+
+      <!-- Bottoni azione -->
+      <div class="action-row">
+        <button class="action-btn btn-cifra" id="btn-cifra">
+          <span class="btn-icon">🔒</span> CIFRA
+        </button>
+        <button class="action-btn btn-decifra" id="btn-decifra">
+          <span class="btn-icon">🔓</span> DECIFRA
+        </button>
+      </div>
+
+      <!-- Esempi rapidi -->
+      <div class="examples-block">
+        <div class="examples-label">ESEMPI RAPIDI</div>
+        <div class="examples-row">
+          <button class="example-btn" data-msg="HELLO WORLD" data-key="AAA" data-r1="I" data-r2="II" data-r3="III">HELLO WORLD</button>
+          <button class="example-btn" data-msg="BUONASERA AMICI" data-key="XKZ" data-r1="I" data-r2="II" data-r3="IV">BUONASERA AMICI</button>
+          <button class="example-btn" data-msg="MACCHINA ENIGMA" data-key="QRS" data-r1="III" data-r2="II" data-r3="I">MACCHINA ENIGMA</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── PANNELLO DESTRO: OUTPUT + INFO ── -->
+    <section class="panel panel-right">
+
+      <!-- Display telescrivente -->
+      <div class="panel-header">
+        <span class="panel-icon">- </span>
+        <h2 class="panel-title">OUTPUT — TELESCRIVENTE</h2>
+        <div class="signal-dot" id="signal-dot"></div>
+      </div>
+
+      <div class="teletype-wrap">
+        <div class="teletype-meta" id="teletype-meta">PRONTO</div>
+        <div class="teletype-display" id="teletype-output">
+          <span class="cursor-blink">█</span>
+        </div>
+        <div class="teletype-stats" id="teletype-stats"></div>
+      </div>
+
+      <!-- Visualizzatore rotori animato -->
+      <div class="rotor-display">
+        <div class="rotor-display-label">POSIZIONE CORRENTE ROTORI</div>
+        <div class="rotor-wheels" id="rotor-wheels">
+          <div class="rotor-wheel">
+            <div class="wheel-letter" id="wheel1">A</div>
+            <div class="wheel-name">R1</div>
+          </div>
+          <div class="rotor-sep">·</div>
+          <div class="rotor-wheel">
+            <div class="wheel-letter" id="wheel2">A</div>
+            <div class="wheel-name">R2</div>
+          </div>
+          <div class="rotor-sep">·</div>
+          <div class="rotor-wheel">
+            <div class="wheel-letter" id="wheel3">A</div>
+            <div class="wheel-name">R3</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sezione storica -->
+      <div class="history-block">
+        <div class="history-header">
+          <span class="history-icon">📜</span>
+          <span class="history-title">LA MACCHINA ENIGMA — STORIA</span>
+        </div>
+        <div class="history-content">
+          <p><strong class="hl">1918:</strong> Arthur Scherbius brevetta la macchina Enigma, inizialmente concepita per uso commerciale.</p>
+          <p><strong class="hl">1926:</strong> La Marina militare tedesca adotta Enigma per le comunicazioni segrete, seguita dall'esercito nel 1928.</p>
+          <p><strong class="hl">Funzionamento:</strong> La macchina usava 3 rotori intercambiabili, ciascuno con un alfabeto permutato. Ogni tasto premuto faceva avanzare i rotori, generando miliardi di possibili configurazioni.</p>
+          <p><strong class="hl">Bletchley Park:</strong> Alan Turing e i crittografi alleati riuscirono a decifrare Enigma costruendo il "Bombe", una macchina elettromeccanica che testava migliaia di configurazioni al secondo.</p>
+          <p><strong class="hl">Impatto:</strong> La decifrazione di Enigma accorciò la guerra di un tempo stimato tra 2 e 4 anni, salvando milioni di vite.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='js/storia.js') }}"></script>
+</body>
+</html>

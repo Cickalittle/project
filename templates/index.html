@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progetto Informatica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/png" href="/pc.png">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #FAFAF7;
+      --ink:     #1a1a18;
+      --ink-2:   #5a5a54;
+      --ink-3:   #ababA4;
+      --rule:    #E4E4DC;
+
+      --math-bg:       #EEEAFF;
+      --math-accent:   #6344D4;
+      --it-bg:         #FFF3E6;
+      --it-accent:     #C45F10;
+      --storia-bg:     #E6F4EE;
+      --storia-accent: #237A48;
+      --chimica-bg:    #E6F0FF;
+      --chimica-accent:#2462B8;
+    }
+
+    html, body { height: 100%; background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 4rem 2rem;
+      gap: 0;
+    }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.0;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 0.7rem;
+    }
+    h1 em { font-style: italic; color: var(--ink-2); }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--ink-3);
+      font-weight: 300;
+      margin-bottom: 3.8rem;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 720px;
+      width: 100%;
+      border: 1px solid var(--rule);
+      gap: 1px;
+      background: var(--rule);
+    }
+    @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      text-decoration: none;
+      background: var(--cream);
+      padding: 2.4rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.22s ease;
+    }
+    .card:hover { background: var(--card-bg); }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--card-accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.28s ease;
+    }
+    .card:hover::before { transform: scaleY(1); }
+
+    .card-math    { --card-bg: var(--math-bg);    --card-accent: var(--math-accent); }
+    .card-italiano{ --card-bg: var(--it-bg);      --card-accent: var(--it-accent); }
+    .card-storia  { --card-bg: var(--storia-bg);  --card-accent: var(--storia-accent); }
+    .card-chimica { --card-bg: var(--chimica-bg); --card-accent: var(--chimica-accent); }
+
+    .card-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--ink-3);
+    }
+
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.05;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--ink-2);
+      line-height: 1.65;
+      font-weight: 300;
+      max-width: 230px;
+    }
+
+    .card-status {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+    }
+    .live { color: var(--card-accent); }
+    .soon { color: var(--ink-3); }
+
+    footer {
+      margin-top: 2.8rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--ink-3);
+      letter-spacing: 0.12em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="eyebrow">Progettino fico</p>
+  <h1>Scegli la <em>materia</em></h1>
+  <p class="tagline">Studio di Funzione, Cifratore e Analisi di Parole.</p>
+
+  <div class="grid">
+    <a href="/matematica" class="card card-math">
+      <span class="card-num">01</span>
+      <div class="card-title">Matematica</div>
+      <p class="card-desc">Studio di funzione completo — dominio, derivate, asintoti e grafico interattivo con pan/zoom.</p>
+      <span class="card-status live">● Disponibile</span>
+    </a>
+
+    <a href="/italiano" class="card card-italiano">
+      <span class="card-num">02</span>
+      <div class="card-title">Italiano</div>
+      <p class="card-desc">Word-cloud e analisi statistica dei canti della Divina Commedia.</p>
+      <span class="card-status live">● Disponibile</span>
+    </a>
+
+    <a href="/storia" class="card card-storia">
+      <span class="card-num">03</span>
+      <div class="card-title">Storia</div>
+      <p class="card-desc">Decriptatore Enigma — cifra messaggi come nella Seconda Guerra Mondiale.</p>
+      <span class="card-status live">● Disponibile</span>
+    </a>
+
+    <a href="/chimica" class="card card-chimica">
+      <span class="card-num">04</span>
+      <div class="card-title">Chimica</div>
+      <p class="card-desc">Tavola periodica interattiva e verificatore di isomeria molecolare. (Purtoppo ho finito le energie, lo vedrà prossimamente.)</p>
+      <span class="card-status soon">○ Prossimamente</span>
+    </a>
+  </div>
+
+  <footer>Cristian Agostini · 5El &mdash; Progetto Informatica</footer>
+
+</body>
+</html>
