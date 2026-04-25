@@ -172,4 +172,4 @@ Cifratura Enigma lato server (specchiata in JS per uso offline).
 ## Autore
 
 **Cristian Agostini** · Classe 5El  
-Progetto di Informatica — a.s. 2024/25
+Progetto di Informatica — a.s. 2025/26
