@@ -10,7 +10,7 @@ Un progetto scolastico che unisce tre moduli interattivi — uno per materia —
 
 ```
 project/
-├── app.py                  # Server Flask, API REST, logica Enigma
+├── app.py
 ├── requirements.txt
 ├── data/
 │   └── elements.json
